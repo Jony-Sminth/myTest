@@ -1,0 +1,285 @@
+实验练习：
+
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+
+pageEncoding="UTF-8"%>
+
+<HTML>
+
+<BODY bgcolor=yellow>
+
+<FONT Size=2>
+
+
+
+<P>欢迎来到本页面，请输入您的
+
+<FORM action="" method=post name=form>
+
+<p>姓名
+
+<INPUT type="text" name="name"> 
+
+<p>性别
+
+<INPUT type="text" name="gender">
+
+<p>年龄 
+
+<INPUT type="text" name="age"> 
+
+<br>
+
+<INPUT TYPE="submit" value="送出" name=submit>
+
+
+
+</FORM> <%
+
+ String name = request.getParameter("name");
+
+String gender = request.getParameter("gender");
+
+String age = request.getParameter("age");
+
+
+
+ if (name == null || gender== null || age == null)
+
+ {
+
+ 	name = "";
+
+ }
+
+ else
+
+ {
+
+ 	session.setAttribute("customerName", name);
+
+ 	session.setAttribute("customergender", gender);
+
+ 	session.setAttribute("customerage", age);
+
+ }
+
+ %> <%
+
+ if (name.length() > 0 && gender.length() > 0 && age.length() > 0)
+
+ {
+
+ %>
+
+<P>
+
+点击超链接，连接到food.jsp的页面,去采购食品。 <A HREF="food.jsp"> 欢迎去食品柜台！</A>
+
+
+
+<%
+
+}
+
+%>
+
+
+
+<FONT>
+
+</BODY>
+
+</HTML>
+
+
+
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+
+    pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+
+<HTML><BODY bgcolor=cyan><FONT Size=3>
+
+
+
+  <P>点击超链接，连接到main.jsp的页面,去修改姓名。
+
+
+
+         <A HREF="main.jsp">  欢迎去main.jsp！</A>
+
+
+
+<P>这里是食品柜台，请选择您要购买的食品：
+
+
+
+   <FORM action="" method=post name=form>
+
+
+
+       <input type="checkbox" name="choice" value="香肠" >香肠
+
+
+
+       <input type="checkbox" name="choice" value="苹果" >苹果
+
+
+
+       <input type="checkbox" name="choice" value="酱油" >酱油
+
+
+
+       <input type="checkbox" name="choice" value="饮料" >饮料
+
+
+
+       </BR>
+
+
+
+       <INPUT TYPE="submit" value="提交" name="submit">
+
+
+
+  </FORM>
+
+
+
+</FONT>
+
+
+
+  <%  String foodName[]=request.getParameterValues("choice");
+
+
+
+      if(foodName!=null)
+
+
+
+      { for(int k=0;k<foodName.length;k++)
+
+
+
+        { session.setAttribute(foodName[k],foodName[k]);
+
+
+
+        }
+
+
+
+      }
+
+
+
+  %>
+
+
+
+   <P>点击超链接，连接到count.jsp的页面,去查看购物车中的商品。
+
+
+
+         <A HREF="count.jsp">  欢迎去count.jsp！</A>
+
+
+
+ </BODY></HTML>
+
+
+
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+
+pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+
+<%@ page import="java.util.*"%>
+
+<HTML>
+
+<P>
+
+这里是结帐处,您的姓名以及选择的商品：
+
+
+
+<%String personName=(String)session.getAttribute("customerName");
+
+String persongender=(String)session.getAttribute("customergender");
+
+String personage=(String)session.getAttribute("customerage");
+
+
+
+    out.println("<br>您的姓名："+personName);
+
+    out.println("<br>您的性别："+persongender);
+
+    out.println("<br>您的年龄："+personage);
+
+    
+
+    Enumeration enumGoods=session.getAttributeNames();
+
+
+
+    out.println("<br>购物车中的商品：<br>");
+
+
+
+    while(enumGoods.hasMoreElements())
+
+
+
+            {  String key=(String)enumGoods.nextElement();
+
+
+
+               String goods=(String)session.getAttribute(key);
+
+
+
+               if(!((goods.equals(personName) || goods.equals(persongender)) || goods.equals(personage)))
+
+
+
+                 out.println(goods+"<br>");
+
+            }  
+
+%>
+
+
+
+<P>
+
+点击超链接，连接到food.jsp的页面,购买食品。 <A HREF="food.jsp"> 欢迎去food.jsp！</A>
+
+<P>
+
+点击超链接，连接到main.jsp的页面,去修改姓名。 <A HREF="main.jsp"> 欢迎去main.jsp！</A> </FONT>
+
+</BODY>
+
+</HTML>
+
+
+
+
+
+
+
+综合实验：
+
+​
